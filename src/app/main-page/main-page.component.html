@@ -1,0 +1,35 @@
+<div style="height: 100%;" class="row">
+  <div class="left-sidebar col-sm-2">
+    <!--SIDEBAR-->
+    <!--todo pozabaviti se responsive dugmetom za tongle sidebar-->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>RafRoid logo</h3>
+      </div>
+      <ul class="list-unstyled components">
+        <li class="active">
+          <a routerLink="" routerLinkActive="active">Početna</a>
+        </li>
+        <li>
+          <a routerLink="vote" routerLinkActive="active">Glasaj sada</a>
+        </li>
+        <li>
+          <a routerLink="vote" routerLinkActive="active">Raf.Ninja</a>
+        </li>
+        <li>
+          <a routerLink="/how-to-vote" routerLinkActive="active">Uputstvo za glasanje</a>
+        </li>
+        <li>
+          <a routerLink="/register" routerLinkActive="active">Nemaš nalog? Regiustruj se!</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!--SIDEBAR-->
+
+  <!--MAIN-CONTENT-->
+  <div class="main-content col-sm-10">
+    <router-outlet></router-outlet>
+  </div>
+  <!--MAIN-CONTENT-->
+</div>
