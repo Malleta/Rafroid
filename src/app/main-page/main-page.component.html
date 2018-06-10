@@ -7,14 +7,14 @@
         <h3>RafRoid logo</h3>
       </div>
       <ul class="list-unstyled components">
-        <li class="active">
+        <li>
           <a routerLink="" routerLinkActive="active">Početna</a>
         </li>
         <li>
-          <a routerLink="vote" routerLinkActive="active">Glasaj sada</a>
+          <a routerLink="/vote" routerLinkActive="active">Glasaj sada</a>
         </li>
         <li>
-          <a routerLink="vote" routerLinkActive="active">Raf.Ninja</a>
+          <a target="_blank" href="https://raf.ninja/documentation">Raf.Ninja</a>
         </li>
         <li>
           <a routerLink="/how-to-vote" routerLinkActive="active">Uputstvo za glasanje</a>
@@ -28,8 +28,12 @@
   <!--SIDEBAR-->
 
   <!--MAIN-CONTENT-->
-  <div class="main-content col-sm-10">
-    <router-outlet></router-outlet>
+  <div class="main-content col-sm-10" style="padding-top: 2rem">
+    <div class="row">
+      <div class="col-sm-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
   <!--MAIN-CONTENT-->
 </div>

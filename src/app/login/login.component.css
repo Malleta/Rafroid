@@ -1,0 +1,10 @@
+.loginform{
+  width: 25rem;
+  padding: 1rem 2.5rem 2rem 2.5rem;
+  background-color: #fff;
+  border-radius: 25px;
+}
+
+.loginImage{
+  width: 16rem;
+}
