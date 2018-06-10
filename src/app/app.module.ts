@@ -11,8 +11,10 @@ import { HowToVoteComponent } from './main-page/how-to-vote/how-to-vote.componen
 import { AppListComponent } from './main-page/app-list/app-list.component';
 import { AppDetailsComponent } from './main-page/app-details/app-details.component';
 
-import {StarRatingModule} from 'levon-angular-star-rating/dist';
+import {StarRatingComponent, StarRatingModule} from 'levon-angular-star-rating/dist';
 import {NgxGalleryModule} from 'ngx-gallery';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,10 +31,12 @@ import {NgxGalleryModule} from 'ngx-gallery';
     BrowserModule,
     routing,
     StarRatingModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [StarRatingModule]
+  exports: [StarRatingComponent]
 })
 export class AppModule { }
