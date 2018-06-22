@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
+import {ServerServices} from '../../server.services';
+import {ActivatedRoute} from '@angular/router';
+
+import * as jwt_decode from 'jwt-decode';
+
 
 @Component({
   selector: 'app-app-details',
@@ -11,7 +16,45 @@ export class AppDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor() { }
+  public app: any;
+  public comments: any;
+  public comment: string;
+  public ifVoted = false;
+  public voteBtnText: string;
+
+  constructor(private server: ServerServices, private route: ActivatedRoute) {
+    this.server.GetAppDetails(this.route.snapshot.params.id).subscribe(result => {
+      this.app = result[0];
+      this.server.GetAppComments(this.app.id).subscribe(result1 => {
+        this.comments = result1;
+      });
+    });
+
+    this.server.CheckIfUserVoted(jwt_decode(localStorage.getItem('currentUser')).id)
+      .subscribe(result => {
+        if (result === true) {
+          this.ifVoted = true;
+          this.voteBtnText = 'Glasano';
+        } else {
+          this.voteBtnText = 'Glasaj';
+        }
+      });
+  }
+
+  AddComment() {
+    const userId = jwt_decode(localStorage.getItem('currentUser')).id;
+    this.server.AddComment(userId, this.comment, this.app.id)
+      .subscribe(result => {
+        console.log(result);
+      });
+  }
+
+  NewVote() {
+    const userId = jwt_decode(localStorage.getItem('currentUser')).id;
+
+    this.server.NewVote(this.app.id, userId).subscribe(result => {
+    });
+  }
 
   ngOnInit(): void {
 

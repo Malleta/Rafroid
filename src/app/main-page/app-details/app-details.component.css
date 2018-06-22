@@ -14,3 +14,9 @@
 .item img {
   width: 100%;
 }
+
+.downloadBtn{
+  bottom: 0;
+  position: absolute;
+  right: 10px;
+}

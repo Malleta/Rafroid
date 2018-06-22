@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="list-group">
+        <a *ngFor="let user of users" (click)="GetUserComments(user.id)" style="margin-bottom: 1rem; cursor: pointer"
+           class="list-group-item list-group-item-action">
+          <h5 class="mb-1">{{user.email}}</h5>
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let comment of comments" class="list-group-item">
+          <h5 class="card-title">{{comment.email}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{comment.date}}</h6>
+          <p class="card-text">{{comment.text}}
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -7,75 +7,43 @@
       <div class="col-sm-7">
         <div class="row">
           <div class="col-sm-9">
-            <h1 class="card-title">Name of application</h1>
+            <h1 class="card-title">{{app.name}}</h1>
           </div>
-          <div class="col-sm my-auto" style="margin-bottom: 1rem">
-            <star-rating-comp [starType]="'svg'" [rating]="4.6"></star-rating-comp>
+          <div class="col-sm-3 my-auto float-right">
+            <button style="margin-bottom: 1rem" [disabled]="ifVoted" (click)="NewVote()" class="btn btn-dark w-100">{{voteBtnText}}</button>
           </div>
         </div>
 
-
         <div class="row">
-          <div class="col-sm"><h5 class="card-subtitle mb-2 text-muted">Author</h5></div>
-          <div class="col-sm offset-5" style="margin-bottom: 1rem">
-            <div class="card-subtitle mb-2 text-muted">Pozicija: <b>3</b></div>
+          <div class="col-sm-8">
+            <div class="card-subtitle mb-2 text-muted">{{app.team}}</div>
+            <div class="card-subtitle mb-2 text-muted">{{app.students}}</div>
+          </div>
+          <div class="col-sm" style="margin-bottom: 1rem">
+            <!--<div class="card-subtitle mb-2 text-muted">Pozicija: <b>3</b></div>-->
             <div class="card-subtitle mb-2 text-muted">Broj glasova: <b>213</b></div>
           </div>
         </div>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget facilisis odio, non
-          sodales
-          magna. Curabitur eu volutpat ex. Nullam non nibh augue. Sed efficitur efficitur tincidunt. Interdum et
-          malesuada
-          fames ac ante ipsum primis in faucibus. Nulla ac porta orci, ut aliquet orci. Integer finibus metus ac sem
-          tincidunt malesuada. In faucibus purus in lectus ultricies maximus. Pellentesque rutrum lectus nec gravida
-          hendrerit. Proin et elementum justo, eu luctus nunc. Fusce sit amet est et erat ornare lacinia nec aliquam
-          nulla.
-          Suspendisse et diam lectus. Duis bibendum quam at lectus gravida pretium. Nam convallis, dui a tempus
-          euismod,
-          sem
-          nisl auctor purus, a porttitor risus est eu neque. Vestibulum cursus elit eu semper dignissim.
+        <p class="card-text">{{app.long_description}}
         </p>
+        <button class="btn downloadBtn btn-success w-25">Preuzmi</button>
       </div>
       <!--todo Smisliti pametno mesto za dugme "Preuzmi" i "Glasaj"-->
 
       <hr class="w-75" style="margin-top: 2rem">
       <div class="col-sm-8 offset-sm-2">
-        <label for="commentInput"></label>
-        <textarea class="form-control" rows="5" id="commentInput" placeholder="Unesi komentar"></textarea>
-        <button style="margin-top: 1rem" class="btn btn-dark float-right">Postavi komentar</button>
+        <form (ngSubmit)="AddComment()">
+          <label for="commentInput"></label>
+          <textarea [(ngModel)]="comment" name="comment" class="form-control" rows="5" id="commentInput" placeholder="Unesi komentar"></textarea>
+          <button type="submit" style="margin-top: 1rem" class="btn btn-dark float-right">Postavi komentar</button>
+        </form>
       </div>
       <div class="col-sm-10 offset-1">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <h5 class="card-title">Frank Sinatra</h5>
-            <h6 class="card-subtitle mb-2 text-muted">10.06.2018</h6>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget facilisis odio, non
-              sodales magna. Curabitur eu volutpat ex. Nullam non nibh augue. Sed efficitur efficitur tincidunt.
-              Interdum et malesuada fames
-            </p>
-          </li>
-          <li class="list-group-item">
-            <h5 class="card-title">Frank Sinatra</h5>
-            <h6 class="card-subtitle mb-2 text-muted">10.06.2018</h6>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget facilisis odio, non
-              sodales magna. Curabitur eu volutpat ex. Nullam non nibh augue. Sed efficitur efficitur tincidunt.
-              Interdum et malesuada fames
-            </p>
-          </li>
-          <li class="list-group-item">
-            <h5 class="card-title">Frank Sinatra</h5>
-            <h6 class="card-subtitle mb-2 text-muted">10.06.2018</h6>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget facilisis odio, non
-              sodales magna. Curabitur eu volutpat ex. Nullam non nibh augue. Sed efficitur efficitur tincidunt.
-              Interdum et malesuada fames
-            </p>
-          </li>
-          <li class="list-group-item">
-            <h5 class="card-title">Frank Sinatra</h5>
-            <h6 class="card-subtitle mb-2 text-muted">10.06.2018</h6>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget facilisis odio, non
-              sodales magna. Curabitur eu volutpat ex. Nullam non nibh augue. Sed efficitur efficitur tincidunt.
-              Interdum et malesuada fames
+          <li *ngFor="let comment of comments" class="list-group-item">
+            <h5 class="card-title">{{comment.email}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{comment.date}}</h6>
+            <p class="card-text">{{comment.text}}
             </p>
           </li>
         </ul>

@@ -11,10 +11,17 @@ import { HowToVoteComponent } from './main-page/how-to-vote/how-to-vote.componen
 import { AppListComponent } from './main-page/app-list/app-list.component';
 import { AppDetailsComponent } from './main-page/app-details/app-details.component';
 
-import {StarRatingComponent, StarRatingModule} from 'levon-angular-star-rating/dist';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+
+import {ServerServices} from './server.services';
+import {AuthGuard} from './guards/auth.guard';
+import {HttpModule} from '@angular/http';
+import { AdminComponent } from './main-page/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -25,18 +32,21 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     VoteComponent,
     HowToVoteComponent,
     AppListComponent,
-    AppDetailsComponent
+    AppDetailsComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
     routing,
-    StarRatingModule,
     NgxGalleryModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [ServerServices, AuthGuard],
   bootstrap: [AppComponent],
-  exports: [StarRatingComponent]
+  exports: []
 })
 export class AppModule { }

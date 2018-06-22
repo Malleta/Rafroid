@@ -1,39 +1,47 @@
-<div style="height: 100%;" class="row">
-  <div class="left-sidebar col-sm-2">
-    <!--SIDEBAR-->
-    <!--todo pozabaviti se responsive dugmetom za tongle sidebar-->
-    <nav id="sidebar">
-      <div class="sidebar-header">
-        <h3>RafRoid logo</h3>
-      </div>
-      <ul class="list-unstyled components">
-        <li>
-          <a routerLink="" routerLinkActive="active">Početna</a>
-        </li>
-        <li>
-          <a routerLink="/vote" routerLinkActive="active">Glasaj</a>
-        </li>
-        <li>
-          <a target="_blank" href="https://raf.ninja/documentation">Raf.Ninja</a>
-        </li>
-        <li>
-          <a routerLink="/how-to-vote" routerLinkActive="active">Uputstvo za glasanje</a>
-        </li>
-        <li>
-          <a routerLink="/register" routerLinkActive="active">Nemaš nalog? Regiustruj se!</a>
-        </li>
-      </ul>
-    </nav>
+<div class="container-fluid h-100">
+  <div class="row h-100">
+    <aside class="col-12 col-md-2 p-0 bg-dark">
+      <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
+        <div class="collapse navbar-collapse">
+          <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+            <li class="nav-item">
+              <a routerLink="" routerLinkActive="active" class="nav-link pl-0 text-nowrap"><i
+                class="fa fa-bullseye fa-fw"></i> <span class="font-weight-bold">RafLogo</span></a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="" routerLinkActive="active" class="nav-link pl-0"><i
+                class="fa fa-home fa-fw"></i> <span class="d-none d-md-inline">Početna</span></a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/vote" routerLinkActive="active" class="nav-link pl-0"><i
+                class="fa fa-list-ol fa-fw"></i> <span class="d-none d-md-inline">Glasaj</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pl-0" target="_blank" href="https://raf.ninja/documentation"><i
+                class="fa fa-link fa-fw"></i> <span
+                class="d-none d-md-inline">Raf.Ninja</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pl-0" routerLink="/how-to-vote" routerLinkActive="active"><i
+                class="fa fa-info fa-fw"></i> <span
+                class="d-none d-md-inline">Uputstvo za glasanje</span></a>
+            </li>
+            <li *ngIf="isAdmin" class="nav-item">
+              <a class="nav-link pl-0" routerLink="/admin" routerLinkActive="active"><i
+                class="fa fa-user-circle-o fa-fw"></i> <span
+                class="d-none d-md-inline">Admin</span></a>
+            </li>
+            <li class="nav-item">
+              <a (click)="LogOut()" class="nav-link pl-0">
+                <i class="fa fa-remove fa-fw"></i>
+                <span class="d-none d-md-inline">Izloguj se</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    <main class="col bg-faded py-3 h-100" style="overflow-y: scroll">
+      <router-outlet></router-outlet>
+    </main>
   </div>
-  <!--SIDEBAR-->
-
-  <!--MAIN-CONTENT-->
-  <div class="main-content col-sm-10" style="padding-top: 2rem">
-    <div class="row">
-      <div class="col-sm-12">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </div>
-  <!--MAIN-CONTENT-->
 </div>

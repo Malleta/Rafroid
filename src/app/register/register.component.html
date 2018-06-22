@@ -2,13 +2,13 @@
   <div class="loginform my-auto">
     <img class="loginImage rounded mx-auto d-block" src="https://sajam.rs/wp-content/uploads/mst2018_raf_logo.jpg"/>
     <hr>
-    <form>
+    <form name="form" #f="ngForm" (ngSubmit)="AddUser(f)">
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text" style="background: white"><i class="material-icons">email</i></span>
           </div>
-          <input type="text" class="form-control" placeholder="Email" aria-label="Email">
+          <input ngModel name="email" type="text" class="form-control" placeholder="Email" aria-label="Email">
         </div>
       </div>
       <div class="form-group">
@@ -16,7 +16,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" style="background: white"><i class="material-icons">lock</i></span>
           </div>
-          <input type="text" class="form-control" placeholder="Lozinka" aria-label="Lozinka">
+          <input ngModel name="password" type="password" class="form-control" placeholder="Lozinka" aria-label="Lozinka">
         </div>
       </div>
       <div class="form-group">
@@ -24,18 +24,11 @@
           <div class="input-group-prepend">
             <span class="input-group-text" style="background: white"><i class="material-icons">lock</i></span>
           </div>
-          <input type="text" class="form-control" placeholder="Lozinka" aria-label="Lozinka">
+          <input ngModel name="rePassword" type="password" class="form-control" placeholder="Ponovite lozinku" aria-label="Lozinka">
         </div>
       </div>
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" style="background: white"><i class="material-icons">lock</i></span>
-          </div>
-          <input type="text" class="form-control" placeholder="Lozinka" aria-label="Lozinka">
-        </div>
-      </div>
-      <button type="button" class="btn btn-success float-right">Registruj se</button>
+      <a routerLink="/login">Uloguj se</a>
+      <button type="submit" class="btn btn-success float-right">Registruj se</button>
     </form>
   </div>
 </div>

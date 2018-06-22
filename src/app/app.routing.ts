@@ -8,13 +8,19 @@ import {HowToVoteComponent} from './main-page/how-to-vote/how-to-vote.component'
 import {AppListComponent} from './main-page/app-list/app-list.component';
 import {AppDetailsComponent} from './main-page/app-details/app-details.component';
 
-const  appRouting: Routes = [
-  {path: '', component: MainPageComponent, children: [
+import {AuthGuard} from './guards/auth.guard';
+import {AdminComponent} from './main-page/admin/admin.component';
+
+const appRouting: Routes = [
+  {
+    path: '', component: MainPageComponent, canActivate: [AuthGuard], children: [
       {path: '', component: AppListComponent},
       {path: 'application-details/:id', component: AppDetailsComponent},
       {path: 'vote', component: VoteComponent},
-      {path: 'how-to-vote', component: HowToVoteComponent}
-    ]},
+      {path: 'how-to-vote', component: HowToVoteComponent},
+      {path: 'admin', component: AdminComponent}
+    ]
+  },
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent}
 ];
