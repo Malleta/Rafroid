@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Router} from '@angular/router';
+
+import {IApp} from './shared/models/app.interface';
+import {IComment} from './shared/models/comment.interface';
+
 
 @Injectable()
 export class ServerServices {
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   AddUser(f) {
@@ -30,15 +33,15 @@ export class ServerServices {
   }
 
   GetAllApps() {
-    return this.http.get('/api/allapps.php');
+    return this.http.get<IApp[]>('/api/allapps.php');
   }
 
   GetAppDetails(appName: string) {
-    return this.http.get('/api/getAppByName.php', {params: {name: appName}});
+    return this.http.get<IApp>('/api/getAppByName.php', {params: {name: appName}});
   }
 
   GetAppComments(appId) {
-    return this.http.get('/api/getcomments.php', {params: {appid: appId}});
+    return this.http.get<IComment[]>('/api/getcomments.php', {params: {appid: appId}});
   }
 
   AddComment(userId, comment, appId) {
@@ -73,11 +76,18 @@ export class ServerServices {
   }
 
   GetUserComments(userId) {
-    return this.http.get('/api/getUserComments.php', {params: {userId: userId}});
+    return this.http.get<IComment[]>('/api/getUserComments.php', {params: {userId: userId}});
   }
 
   CheckIfUserVoted(userId) {
     return this.http.get('/api/checkIfUserVoted.php', {params: {userId: userId}});
+  }
 
+  AppsNumberOfVotes(appId) {
+    return this.http.get('/api/appNumberOfVotes.php', {params: {appId: appId}});
+  }
+
+  UserVoted(userId) {
+    return this.http.get('/api/userVotedFor.php', {params: {userId: userId}});
   }
 }

@@ -10,6 +10,7 @@ import {AppDetailsComponent} from './main-page/app-details/app-details.component
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminComponent} from './main-page/admin/admin.component';
+import {NeAuthGuard} from './guards/neAuth.guard';
 
 const appRouting: Routes = [
   {
@@ -21,8 +22,8 @@ const appRouting: Routes = [
       {path: 'admin', component: AdminComponent}
     ]
   },
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'login', component: LoginComponent, canActivate: [NeAuthGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [NeAuthGuard]}
 ];
 
 export const routing = RouterModule.forRoot(appRouting);

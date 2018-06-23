@@ -8,7 +8,11 @@
           <div class="input-group-prepend">
             <span class="input-group-text" style="background: white"><i class="material-icons">email</i></span>
           </div>
-          <input ngModel name="email" type="text" class="form-control" placeholder="Email" aria-label="Email">
+          <input ngModel name="email" minlength="9" maxlength="50" type="text"
+                 class="form-control" placeholder="Email@raf.rs" email #email="ngModel" required>
+          <div *ngIf="email.invalid && email.touched" class="invalid-feedback" style="display: block">
+            Email adresa nije ispravna.
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -16,11 +20,15 @@
           <div class="input-group-prepend">
             <span class="input-group-text" style="background: white"><i class="material-icons">lock</i></span>
           </div>
-          <input ngModel name="password" type="password" class="form-control" placeholder="Lozinka" aria-label="Lozinka">
+          <input ngModel name="password" type="password" class="form-control" placeholder="Lozinka"
+                 minlength="5" maxlength="30" #password="ngModel" required>
+          <div *ngIf="password.invalid && password.touched" class="invalid-feedback" style="display: block">
+            Lozinka nije ispravna.
+          </div>
         </div>
       </div>
       <a routerLink="/register">Registruj se</a>
-      <button type="submit" class="btn btn-success float-right">Uloguj se</button>
+      <button [disabled]="!f.valid" type="submit" class="btn btn-success float-right">Uloguj se</button>
     </form>
   </div>
 </div>

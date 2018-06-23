@@ -1,31 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {ServerServices} from '../server.services';
+import {BsModalService} from 'ngx-bootstrap';
+import {InfoModalComponent} from '../shared/modals/infoModal.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private server: ServerServices, private router: Router) {
-  }
-
-  ngOnInit() {
+  constructor(private server: ServerServices, private router: Router, private modalService: BsModalService) {
   }
 
   Login(f) {
     this.server.Login(f)
       .subscribe(result => {
-        if (result === false) {
-          console.warn('Niste aktivirali nalog');
-        } else {
-          localStorage.setItem('currentUser', result.toString());
-          // todo modal uspesno registrovanje, redirect 5 sec i takodje disable cim pritisne dugme
-          this.router.navigate(['']);
-        }
-
-      }, error => console.log(error));
+        localStorage.setItem('currentUser', result.toString());
+        this.router.navigate(['']);
+      }, error => {
+        const initialState = {
+          title: 'Neuspešno prijavljivanje',
+          description: `Nalog nije aktiviran.`
+        };
+        this.modalService.show(InfoModalComponent, {initialState});
+      });
   }
 }

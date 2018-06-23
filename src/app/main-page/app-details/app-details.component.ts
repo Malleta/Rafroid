@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {ServerServices} from '../../server.services';
 import {ActivatedRoute} from '@angular/router';
 
 import * as jwt_decode from 'jwt-decode';
+import {IApp} from '../../shared/models/app.interface';
+import {AppCommentsComponent} from './app-comments/app-comments.component';
 
 
 @Component({
@@ -16,19 +18,44 @@ export class AppDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  public app: any;
-  public comments: any;
+  public app: IApp;
+  public numberOfVotes: number;
+
   public comment: string;
+
   public ifVoted = false;
   public voteBtnText: string;
 
+  @ViewChild(AppCommentsComponent)
+  private commentsComp: AppCommentsComponent;
+
   constructor(private server: ServerServices, private route: ActivatedRoute) {
-    this.server.GetAppDetails(this.route.snapshot.params.id).subscribe(result => {
-      this.app = result[0];
-      this.server.GetAppComments(this.app.id).subscribe(result1 => {
-        this.comments = result1;
+    this.server.GetAppDetails(this.route.snapshot.params.id)
+      .subscribe(result => {
+        this.app = result[0];
+        this.galleryImages = [
+          {
+            small: `../../../assets/apps/${this.app.name}/carousel/1.jpeg`,
+            medium: `../../../assets/apps/${this.app.name}/carousel/1.jpeg`,
+            big: `../../../assets/apps/${this.app.name}/carousel/1.jpeg`
+          },
+          {
+            small: `../../../assets/apps/${this.app.name}/carousel/2.jpeg`,
+            medium: `../../../assets/apps/${this.app.name}/carousel/2.jpeg`,
+            big: `../../../assets/apps/${this.app.name}/carousel/2.jpeg`
+          },
+          {
+            small: `../../../assets/apps/${this.app.name}/carousel/3.jpeg`,
+            medium: `../../../assets/apps/${this.app.name}/carousel/3.jpeg`,
+            big: `../../../assets/apps/${this.app.name}/carousel/3.jpeg`
+          }
+        ];
+        this.commentsComp.getComments(this.app.id);
+        this.server.AppsNumberOfVotes(this.app.id)
+          .subscribe(result3 => {
+            this.numberOfVotes = result3[0].value;
+          }, error1 => console.log(error1));
       });
-    });
 
     this.server.CheckIfUserVoted(jwt_decode(localStorage.getItem('currentUser')).id)
       .subscribe(result => {
@@ -41,23 +68,29 @@ export class AppDetailsComponent implements OnInit {
       });
   }
 
-  AddComment() {
+  AddComment(): void {
     const userId = jwt_decode(localStorage.getItem('currentUser')).id;
     this.server.AddComment(userId, this.comment, this.app.id)
       .subscribe(result => {
-        console.log(result);
-      });
+        this.commentsComp.getComments(this.app.id);
+      }, error1 => console.log(error1));
   }
 
-  NewVote() {
+  NewVote(): void {
     const userId = jwt_decode(localStorage.getItem('currentUser')).id;
+    this.server.NewVote(this.app.id, userId)
+      .subscribe(result => {
+        this.ifVoted = true;
+        this.voteBtnText = 'Glasano';
+      }, error1 => console.log(error1));
+  }
 
-    this.server.NewVote(this.app.id, userId).subscribe(result => {
-    });
+
+  DownloadApp(): void {
+    window.open(`https://localhost/api/app/${this.app.name}.apk`);
   }
 
   ngOnInit(): void {
-
     this.galleryOptions = [
       {
         width: '100%',
@@ -86,25 +119,5 @@ export class AppDetailsComponent implements OnInit {
         preview: false
       }
     ];
-
-    this.galleryImages = [
-      {
-        small: 'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        medium: 'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        big: 'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-      },
-      {
-        small: 'https://images.pexels.com/photos/1562/italian-landscape-mountains-nature.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        medium: 'https://images.pexels.com/photos/1562/italian-landscape-mountains-nature.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        big: 'https://images.pexels.com/photos/1562/italian-landscape-mountains-nature.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-      },
-      {
-        small: 'https://images.pexels.com/photos/696680/pexels-photo-696680.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        medium: 'https://images.pexels.com/photos/696680/pexels-photo-696680.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        big: 'https://images.pexels.com/photos/696680/pexels-photo-696680.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-      }
-    ];
-
   }
-
 }

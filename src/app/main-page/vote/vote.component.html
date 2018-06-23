@@ -21,8 +21,7 @@
       </div>
       <div class="col-sm-4">
         <div class="input-group mb-3">
-          <input id="searchInput" type="text" class="form-control" placeholder="Naziv aplikacije"
-                 aria-label="Naziv aplikacije" aria-describedby="basic-addon2">
+          <input [(ngModel)]="search" id="searchInput" type="text" class="form-control" placeholder="Naziv aplikacije">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button"><i class="material-icons my-auto">search</i>
             </button>
@@ -31,7 +30,8 @@
       </div>
       <div class="col-sm-12">
         <div class="card-columns">
-          <div *ngFor="let app of apps" [routerLink]="['/application-details', app.name]" class="card" style="cursor: pointer; border-radius: 30px; border-top: 2px solid #a8385d">
+          <div *ngFor="let app of apps | AppSearch: 'name': search" [routerLink]="['/application-details', app.name]" class="card"
+               style="cursor: pointer; border-radius: 30px; border-top: 2px solid #a8385d">
             <div class="card-header">
               <h6>{{app.name}}</h6>
               <div style="margin-bottom: 0!important;" class="card-subtitle mb-2 text-muted">{{app.team}}</div>

@@ -10,7 +10,9 @@
             <h1 class="card-title">{{app.name}}</h1>
           </div>
           <div class="col-sm-3 my-auto float-right">
-            <button style="margin-bottom: 1rem" [disabled]="ifVoted" (click)="NewVote()" class="btn btn-dark w-100">{{voteBtnText}}</button>
+            <button style="margin-bottom: 1rem" [disabled]="ifVoted" (click)="NewVote()" class="btn btn-dark w-100">
+              {{voteBtnText}}
+            </button>
           </div>
         </div>
 
@@ -21,32 +23,24 @@
           </div>
           <div class="col-sm" style="margin-bottom: 1rem">
             <!--<div class="card-subtitle mb-2 text-muted">Pozicija: <b>3</b></div>-->
-            <div class="card-subtitle mb-2 text-muted">Broj glasova: <b>213</b></div>
+            <div class="card-subtitle mb-2 text-muted">Broj glasova: <b>{{numberOfVotes}}</b></div>
           </div>
         </div>
         <p class="card-text">{{app.long_description}}
         </p>
-        <button class="btn downloadBtn btn-success w-25">Preuzmi</button>
+        <button (click)="DownloadApp()" class="btn downloadBtn btn-success w-25">Preuzmi</button>
       </div>
-      <!--todo Smisliti pametno mesto za dugme "Preuzmi" i "Glasaj"-->
-
       <hr class="w-75" style="margin-top: 2rem">
-      <div class="col-sm-8 offset-sm-2">
+      <div class="col-sm-8 offset-sm-2"  style="margin-bottom: 2rem">
         <form (ngSubmit)="AddComment()">
           <label for="commentInput"></label>
-          <textarea [(ngModel)]="comment" name="comment" class="form-control" rows="5" id="commentInput" placeholder="Unesi komentar"></textarea>
+          <textarea [(ngModel)]="comment" name="comment" class="form-control" rows="5" id="commentInput"
+                    placeholder="Unesi komentar"></textarea>
           <button type="submit" style="margin-top: 1rem" class="btn btn-dark float-right">Postavi komentar</button>
         </form>
       </div>
       <div class="col-sm-10 offset-1">
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let comment of comments" class="list-group-item">
-            <h5 class="card-title">{{comment.email}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{comment.date}}</h6>
-            <p class="card-text">{{comment.text}}
-            </p>
-          </li>
-        </ul>
+        <app-comments></app-comments>
       </div>
     </div>
   </div>
