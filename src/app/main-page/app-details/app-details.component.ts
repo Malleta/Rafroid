@@ -87,7 +87,7 @@ export class AppDetailsComponent implements OnInit {
 
 
   DownloadApp(): void {
-    window.open(`https://localhost/api/app/${this.app.name}.apk`);
+    window.open(`/assets/apps/${this.app.name}/${this.app.name}.apk`);
   }
 
   ngOnInit(): void {

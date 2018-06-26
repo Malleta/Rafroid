@@ -6,7 +6,6 @@ export class NeAuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log(!localStorage.getItem('currentUser'));
     if (!localStorage.getItem('currentUser')) {
       return true;
     }

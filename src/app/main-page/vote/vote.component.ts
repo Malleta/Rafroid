@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {ServerServices} from '../../server.services';
 import {Router} from '@angular/router';
 import {IApp} from '../../shared/models/app.interface';
@@ -9,7 +9,7 @@ import {IApp} from '../../shared/models/app.interface';
   templateUrl: './vote.component.html',
   styleUrls: ['./vote.component.css']
 })
-export class VoteComponent implements OnInit {
+export class VoteComponent implements AfterViewInit {
 
   public apps: IApp[];
   public data: any;
@@ -43,7 +43,7 @@ export class VoteComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     setInterval(() => {
       this.server.GetVotes().subscribe(result => {
         this.data = result;
