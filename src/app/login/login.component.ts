@@ -17,7 +17,6 @@ export class LoginComponent {
   Login(f) {
     this.server.Login(f)
       .subscribe(result => {
-        console.log(result);
         localStorage.setItem('currentUser', result.toString());
         this.router.navigate(['']);
       }, error => {

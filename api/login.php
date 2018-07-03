@@ -6,8 +6,7 @@ ob_start();
 require 'vendor/autoload.php';
 
   $email = $_REQUEST['email'];
-  $pass = $_REQUEST['password'];
-  $pass = md5($pass);
+  $pass = md5($_REQUEST['password']);
 
   $sql = "SELECT * FROM users WHERE email='$email' and password='$pass'";
   $result = $conn->query($sql);
@@ -19,7 +18,7 @@ require 'vendor/autoload.php';
     }
     if($valid==0){
       //Korisnik nije validan! Nije potvrdio registraciju
-      echo "false";
+      echo http_response_code(401);
     }else{
       //--Token--
       //ID Saljes kao parametar na api kad se trazi
@@ -32,21 +31,10 @@ require 'vendor/autoload.php';
       );
       //Enkoduje se, ti preuzimas
       $jwt = JWT::encode($token, $key);
-      echo $JSON = json_encode($jwt);
-        /*$decoded = JWT::decode($jwt, $key, array('HS256'));
-
-        print_r($decoded);
-
-
-        $decoded_array = (array) $decoded;
-        JWT::$leeway = 60; // $leeway in seconds
-        $decoded = JWT::decode($jwt, $key, array('HS256'));*/
-      // Uspesno si se ulogovao
-      // Napravi sesiju
-      // Prebaci na pocetnu stranu
+      echo json_encode($jwt);
     }
   }else{
-    echo "false";
+    echo http_response_code(400);
   }
 
  ?>

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {IApp} from './shared/models/app.interface';
@@ -15,7 +15,7 @@ export class ServerServices {
       .set('email', f.value.email)
       .set('password', f.value.password);
 
-    return this.http.post('/api/register.php', body.toString(), {
+    return this.http.post('/petrichor/api/register.php', body.toString(), {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
@@ -26,22 +26,22 @@ export class ServerServices {
       .set('email', f.value.email)
       .set('password', f.value.password);
 
-    return this.http.post('/api/login.php', body.toString(), {
+    return this.http.post('/petrichor/api/login.php', body.toString(), {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
 
   GetAllApps() {
-    return this.http.get<IApp[]>('/api/allapps.php');
+    return this.http.get<IApp[]>('/petrichor/api/allapps.php');
   }
 
   GetAppDetails(appName: string) {
-    return this.http.get<IApp>('/api/getAppByName.php', {params: {name: appName}});
+    return this.http.get<IApp>('/petrichor/api/getAppByName.php', {params: {name: appName}});
   }
 
   GetAppComments(appId) {
-    return this.http.get<IComment[]>('/api/getcomments.php', {params: {appid: appId}});
+    return this.http.get<IComment[]>('/petrichor/api/getcomments.php', {params: {appid: appId}});
   }
 
   AddComment(userId, comment, appId) {
@@ -50,7 +50,7 @@ export class ServerServices {
       .set('comment', comment)
       .set('appId', appId);
 
-    return this.http.post('/api/addingcomment.php', body, {
+    return this.http.post('/petrichor/api/addingcomment.php', body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
@@ -61,33 +61,33 @@ export class ServerServices {
       .set('korisnik', userId)
       .set('appID', appId);
 
-    return this.http.post('/api/vote.php', body, {
+    return this.http.post('/petrichor/api/vote.php', body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
 
   GetVotes() {
-    return this.http.get('/api/pozicija.php');
+    return this.http.get('/petrichor/api/pozicija.php');
   }
 
   GetUsers() {
-    return this.http.get('/api/admin.php');
+    return this.http.get('/petrichor/api/admin.php');
   }
 
   GetUserComments(userId) {
-    return this.http.get<IComment[]>('/api/getUserComments.php', {params: {userId: userId}});
+    return this.http.get<IComment[]>('/petrichor/api/getUserComments.php', {params: {userId: userId}});
   }
 
   CheckIfUserVoted(userId) {
-    return this.http.get('/api/checkIfUserVoted.php', {params: {userId: userId}});
+    return this.http.get('/petrichor/api/checkIfUserVoted.php', {params: {userId: userId}});
   }
 
   AppsNumberOfVotes(appId) {
-    return this.http.get('/api/appNumberOfVotes.php', {params: {appId: appId}});
+    return this.http.get('/petrichor/api/appNumberOfVotes.php', {params: {appId: appId}});
   }
 
   UserVoted(userId) {
-    return this.http.get('/api/userVotedFor.php', {params: {userId: userId}});
+    return this.http.get('/petrichor/api/userVotedFor.php', {params: {userId: userId}});
   }
 }

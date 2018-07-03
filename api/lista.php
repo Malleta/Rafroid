@@ -8,8 +8,7 @@ $arr3 = array();
 $arr4 = array();
 $arr5 = array();
  
-if(isset($_GET['id'])){
-  $korisnik = $_GET['id'];
+  $korisnik = $_REQUEST['id'];
   $i=0;
   $sql = "SELECT * FROM users INNER JOIN votes ON users.id=votes.voter WHERE users.id='$korisnik'";
   $result = $conn->query($sql);
@@ -74,7 +73,6 @@ if(isset($_GET['id'])){
         //echo "Email: ".$row['email']."<br>Korisnik nije glasao i nema komentare";
       }
     }
-  }
 }
  
  ?>
